@@ -1,10 +1,11 @@
-use std::env;
-
 use serenity::{
     async_trait,
     model::{channel::Message, gateway::Ready},
     prelude::*,
 };
+
+#[path = "config/mod.rs"]
+mod config;
 
 #[path = "constants/messages.rs"]
 mod messages;
@@ -44,7 +45,10 @@ impl EventHandler for Handler {
 #[tokio::main]
 async fn main() {
     // Configure the client with your Discord bot token in the environment.
-    let token = env::var("DISCORD_TOKEN").expect("Expected 'DISCORD_TOKEN' token in the environment");
+    let settings = config::settings::Settings::new().unwrap();
+
+
+    let token = settings.discord.token;
 
     // Create a new instance of the Client, logging in as a bot. This will
     // automatically prepend your bot token with "Bot ", which is a requirement
