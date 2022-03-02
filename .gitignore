@@ -1,0 +1,7 @@
+/target
+
+#Environment file
+.env
+
+#config file
+/src/config/local.toml
